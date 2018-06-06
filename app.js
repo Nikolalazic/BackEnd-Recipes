@@ -13,11 +13,6 @@ app.use(bodyParser.json()); // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
 	extended: true,
 }));
-const {
-	User,
-	AccessToken,
-	Recipe,
-} = require('./models/index');
 app.use('/user', RegisterController);
 app.use('/user', LoginController);
 app.use('/recipes', CreateController);
