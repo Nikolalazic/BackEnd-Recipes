@@ -1,73 +1,30 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const {
-	User,
-	AccessToken,
-} = require('./models/index');
 const app = express();
+
+const RegisterController = require('./controllers/register');
+const LoginController = require('./controllers/login');
+const CreateController = require('./controllers/recipe');
+const EditController = require('./controllers/editRecipe');
+const DeleteController = require('./controllers/deleteRecipe');
+const AllRecipesController = require('./controllers/allRecipes');
+const MyRecipesController = require('./controllers/myRecipes');
 app.use(bodyParser.json()); // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
 	extended: true,
 }));
-app.post('/register', async (req, res) => {
-	try {
-		const {
-			fullName,
-			nickName,
-			email,
-			password,
-		} = req.body;
-		const user = await User.create({
-			fullName,
-			nickName,
-			email,
-			password,
-		});
-		res.send(user);
-	} catch (error) {
-		console.log(error);
-	}
-});
-app.post('/login', async (req, res) => {
-	try {
-		const {
-			nickName,
-			password,
-		} = req.body;
-		const user = await User.findOne({
-			where: {
-				nickName,
-				password,
-			},
-		});
-		if (!user) {
-			return res.send('Pogresna sifra ili nick');
-		}
+const {
+	User,
+	AccessToken,
+	Recipe,
+} = require('./models/index');
+app.use('/user', RegisterController);
+app.use('/user', LoginController);
+app.use('/recipes', CreateController);
+app.use('/recipes', EditController);
+app.use('/recipes', DeleteController);
+app.use('/recipes', AllRecipesController);
+app.use('/recipes', MyRecipesController);
 
-		const accessToken = await AccessToken.create({
-			userId: user.id,
-		});
 
-		res.send(accessToken);
-	} catch (error) {
-		console.log(error);
-	}
-});
-app.post('/recipes', async (req, res) => {
-	
-});
-
-app.put('/recipes/:recipesId', async (req, res) => {
-
-});
-app.delete('/recipes', async (req, res) => {
-
-});
-app.get('/recipes', async (req, res) => {
-
-});
-app.get('/recipes/my-recipes', async (req, res) => {
-
-});
-
-app.listen(8080, () => console.log('Example app listening on port 3000!'));
+app.listen(8080, () => console.log('Example app listening on port 8080!'));

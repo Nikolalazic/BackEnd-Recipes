@@ -10,12 +10,11 @@ module.exports = (sequelize) => {
 			type: Sequelize.STRING,
 			allowNull: false,
 		},
-		Ingredients: {
+		ingredients: {
 			type: Sequelize.TEXT,
-			unique: true,
 			allowNull: false,
 		},
-		Description: {
+		description: {
 			type: Sequelize.TEXT,
 			allowNull: false,
 		},
