@@ -1,10 +1,10 @@
 const express = require('express');
 const DeleteController = express.Router();
-const {
-	User,
-	AccessToken,
-	Recipe,
-} = require('../models/index');
+// const {
+// 	User,
+// 	AccessToken,
+// 	Recipe,
+// } = require('../models/index');
 DeleteController.delete('/delete/:recipesId', async (req, res) => {
 	try {
 		const token = await AccessToken.findById(req.headers.token);
